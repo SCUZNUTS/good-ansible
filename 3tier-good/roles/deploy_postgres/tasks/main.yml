@@ -12,6 +12,9 @@
     path: /var/lib/pgsql/data/postgresql.conf
   register: postgress_init
 
+- debug:
+    var: postgress_init
+
 - block:
   - name: initilize postgres
     command: postgresql-setup initdb
