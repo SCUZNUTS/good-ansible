@@ -22,14 +22,9 @@
   roles:
    - { role: ../roles/deploy_haproxy }
 
-- hosts: frontends
+- hosts: localhost
   gather_facts: true
   tasks:
-  - name: fetch app url
-    set_fact: 
-      url_var: hostvars['{{ item }}']['ansible_ssh_host']
-    loop:
-      - "{{ groups['frontends'] | list | join }}"
-    delegate: localhost
-  - debug:
-      var: url_var
+   - name: Check haproxy is serving website
+     uri:
+       url: http://frontend1.{{ GUID }}.example.opentlc.com
