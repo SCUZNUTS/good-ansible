@@ -21,3 +21,11 @@
   hosts: frontends
   roles:
    - { role: ../roles/deploy_haproxy }
+
+- hosts: localhost
+  gather_facts: true
+  tasks:
+  - name: fetch app url
+    debug: var=hostvars['{{ item }}']['ansible_ssh_host']
+    loop:
+      - "{{ groups['frontends'] | list | join }}"
