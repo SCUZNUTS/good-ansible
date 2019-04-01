@@ -1,0 +1,43 @@
+---
+# tasks file for restart-server
+
+- set_fact:
+    remote_ssh_host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+
+- name: Get current time
+  command: /bin/date +%s
+  register: time_before_reboot
+  become: no
+
+- name: Reboot Systems
+  shell: sleep 14 && /sbin/shutdown -r now
+  async: 10
+  poll: 0
+  become: yes
+
+- name: Wait for SSH to become unavailable.
+  wait_for:
+    port: 22
+    host: "{{ remote_ssh_host }}"
+    delay: 5
+    connect_timeout: 3
+    timeout: 800
+    state: stopped
+  vars:
+    ansible_connection: local
+#  connection: local
+
+- name: Wait for the servers to reboot.
+  wait_for:
+    port: 22
+    host: "{{ remote_ssh_host }}"
+    search_regex: OpenSSH
+    delay: 10
+    timeout: 800
+  vars:
+    ansible_connection: local
+#  connection: local
+
+- name: Verify a reboot actually occurred - Checks uptime vs date before and after reboot
+  shell: (( `date +%s` - `awk -F . '{print $1}' /proc/uptime` > {{ time_before_reboot.stdout }} ))
+  become: no

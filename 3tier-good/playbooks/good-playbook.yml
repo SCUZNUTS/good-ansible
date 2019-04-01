@@ -10,7 +10,7 @@
   roles:
    - { role: roles/deploy_postgres }
 
-- name: deploy tomcat and apache too app servers
+- name: deploy tomcat and apache to app servers
   hosts: apps
   roles:
    - { role: roles/deploy_tomcat }
