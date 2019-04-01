@@ -3,21 +3,21 @@
 - name: Deploy common files to all hosts
   hosts: all
   roles:
-   - { role: roles/deploy_yum_repos }
+   - { role: ../roles/deploy_yum_repos }
 
 - name: deploy postgres to db servers
   hosts: appdbs
   roles:
-   - { role: roles/deploy_postgres }
+   - { role: ../roles/deploy_postgres }
 
 - name: deploy tomcat and apache to app servers
   hosts: apps
   roles:
-   - { role: roles/deploy_tomcat }
-   - { role: roles/config_tomcat }
-   - { role: roles/deploy_apache }
+   - { role: ../roles/deploy_tomcat }
+   - { role: ../roles/config_tomcat }
+   - { role: ../roles/deploy_apache }
 
 - name: deploy haproxy to frontend
   hosts: frontends
   roles:
-   - { role: roles/deploy_haproxy }
+   - { role: ../roles/deploy_haproxy }

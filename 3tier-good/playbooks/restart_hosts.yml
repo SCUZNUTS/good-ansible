@@ -3,9 +3,9 @@
 - name: Restart all hosts
   hosts: appdbs
   roles:
-   - { role: roles/restart_hosts }
+   - { role: ../roles/restart_hosts }
 
 - name: Restart all hosts
   hosts: all,!appdbs
   roles:
-   - { role: roles/restart_hosts }
+   - { role: ../roles/restart_hosts }
