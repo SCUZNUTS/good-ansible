@@ -3,5 +3,5 @@
 - name: restart tomcat
   service:
     name: tomcat
-    state: restart
+    state: restarted
   become: true
