@@ -22,11 +22,14 @@
   roles:
    - { role: ../roles/deploy_haproxy }
 
-- hosts: localhost
+- hosts: frontends
   gather_facts: true
   tasks:
-   - name: check tomcat serving via haproxy
-     uri:
-       url: var=hostvars['{{ item }}']['ansible_ssh_host']
-     loop:
-       - "{{ groups['frontends'] | list | join }}"
+  - name: fetch app url
+    set_fact: 
+      url_var: hostvars['{{ item }}']['ansible_ssh_host']
+    loop:
+      - "{{ groups['frontends'] | list | join }}"
+    delegate: localhost
+  - debug:
+      var: url_var
