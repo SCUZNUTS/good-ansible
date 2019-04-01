@@ -1,0 +1,4 @@
+- name: Deploy common files to all hosts
+  hosts: all
+  roles:
+   - { role: ../roles/deploy_yum_repos }
