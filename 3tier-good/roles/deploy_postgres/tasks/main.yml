@@ -7,12 +7,16 @@
   become: true
   notify: ensure postgres started
 
-##only run the next 2 tasks once!
-- name: initilize postgres
-  command: postgresql-setup initdb
-  tags:
-    - sql_init
-- name: initilize postgres some more
-  command: chkconfig postgresql on
+- name: Check if postgres has been init
+  stat:
+    path: /var/lib/pgsql/data/postgresql.conf
+  register: postgress_init
+
+- block:
+  - name: initilize postgres
+    command: postgresql-setup initdb
+  - name: initilize postgres some more
+    command: chkconfig postgresql on
+  when: postgress_init is not defined
   tags:
     - sql_init
