@@ -8,6 +8,13 @@
   tags:
     - tomcat_install
 
+- name: Enable tomcat to start on boot
+  service:
+    name: tomcat
+    enabled: yes
+  become: true
+    - tomcat_install
+
 - name: create ansible tomcat directory
   file:
     path: /usr/share/tomcat/webapps/ROOT

@@ -9,3 +9,9 @@
   become: yes
   tags:
     - install_apache
+    
+- name: ensure apache enabled to start at boot
+  service:
+    name: httpd
+    enabled: yes
+  become: true
