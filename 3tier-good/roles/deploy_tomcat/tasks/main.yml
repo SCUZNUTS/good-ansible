@@ -12,6 +12,7 @@
   service:
     name: tomcat
     enabled: yes
+    state: started
   become: true
     - tomcat_install
 
