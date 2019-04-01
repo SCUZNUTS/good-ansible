@@ -15,4 +15,6 @@
     dest: /etc/haproxy/haproxy.cfg
   notify:
     - restart HAproxy
+  tags:
+    - config_haproxy
   become: true
