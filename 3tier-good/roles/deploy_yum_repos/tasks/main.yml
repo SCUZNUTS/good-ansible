@@ -1,6 +1,6 @@
 ---
 
-- name: enable repos
+- name: Deploy encrypted yum repo file
   copy:
     src: open_three-tier-app.repo
     dest: /etc/yum.repos.d/open_three-tier-app.repo
