@@ -1,5 +1,11 @@
 ---
 
+- name: Create path for tomcat file
+  file:
+    path: /usr/share/tomcat/webapps/ansible
+    state: directory
+    mode: 0755
+
 - name: copy index.html to tomcat/webapps/ansible/index.html for each app server
   template:
     src: index.html.j2
