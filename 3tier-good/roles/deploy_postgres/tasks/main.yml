@@ -11,8 +11,8 @@
 - name: initilize postgres
   command: postgresql-setup initdb
   tags:
-    - sql
+    - sql_init
 - name: initilize postgres some more
   command: chkconfig postgresql on
   tags:
-    - sql
+    - sql_init
