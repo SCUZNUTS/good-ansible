@@ -13,13 +13,13 @@
   register: postgress_init
 
 - debug:
-    var: postgress_init
+    var: postgress_init.stat.exists
 
 - block:
   - name: initilize postgres
     command: postgresql-setup initdb
   - name: initilize postgres some more
     command: chkconfig postgresql on
-  when: postgress_init.stat.exists == "false"
+  when: postgress_init.stat.exists == false
   tags:
     - sql_init
