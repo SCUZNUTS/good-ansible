@@ -5,21 +5,22 @@
     name: postgresql-server
     state: latest
   become: true
-  notify: ensure postgres started
+  tags:
+    - postgres_install
 
 - name: Check if postgres has been init
   stat:
     path: /var/lib/pgsql/data/postgresql.conf
   register: postgress_init
-
-- debug:
-    var: postgress_init.stat.exists
+  tags:
+    - postgres_install
 
 - block:
   - name: initilize postgres
     command: postgresql-setup initdb
   - name: initilize postgres some more
     command: chkconfig postgresql on
+    notify: ensure postgres started
   when: postgress_init.stat.exists == false
   tags:
-    - sql_init
+    - postgres_install

@@ -6,3 +6,5 @@
     dest: /etc/yum.repos.d/open_three-tier-app.repo
     mode: 0644
   become: true
+  tags:
+    - yum_repo_deploy

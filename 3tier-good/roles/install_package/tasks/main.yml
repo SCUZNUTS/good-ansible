@@ -1,0 +1,13 @@
+---
+
+- debug:
+    var: install_packages
+
+- name: Install required packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ install_packages|flatten(levels=1) }}"
+  become: true
+  tags:
+    - install_package

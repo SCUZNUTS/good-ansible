@@ -5,11 +5,16 @@
     path: /usr/share/tomcat/webapps/ansible
     state: directory
     mode: 0755
+  become: true
+  tags:
+    - tomcat_config
 
 - name: copy index.html to tomcat/webapps/ansible/index.html for each app server
   template:
     src: index.html.j2
     dest: /usr/share/tomcat/webapps/ansible/index.html
-  become: yes
+  become: true
   notify:
     - restart tomcat
+  tags:
+    - tomcat_config

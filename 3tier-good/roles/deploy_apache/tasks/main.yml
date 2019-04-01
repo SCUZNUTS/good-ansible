@@ -6,3 +6,6 @@
     state: latest
   notify:
     - ensure apache started
+  become: yes
+  tags:
+    - install_apache

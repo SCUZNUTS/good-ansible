@@ -5,20 +5,17 @@
     name: tomcat
     state: latest
   become: true
-
-- name: enable tomcat at boot
-  service:
-    name: tomcat
-    enabled: yes
-  become: true
-  notify:
-    - restart tomcat
+  tags:
+    - tomcat_install
 
 - name: create ansible tomcat directory
   file:
     path: /usr/share/tomcat/webapps/ROOT
     state: directory
   become: true
+  tags:
+    - tomcat_install
+    - config_tomcat
 
 - name: copy index.html to tomcat/webapps/ROOT/index.html
   template:
@@ -26,3 +23,8 @@
     dest: /usr/share/tomcat/webapps/ROOT/index.html
     mode: 0644
   become: true
+  notify:
+    - restart tomcat
+  tags:
+    - tomcat_install
+    - config_tomcat

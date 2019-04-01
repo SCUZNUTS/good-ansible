@@ -8,6 +8,9 @@
     - httpie
     - haproxy
   become: true
+  tags:
+    - deploy_haproxy
+    - config_haproxy
 
 - name: Configure haproxy with template
   template:
