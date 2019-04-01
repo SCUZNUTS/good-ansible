@@ -19,7 +19,7 @@
 
 - name: copy index.html to tomcat/webapps/ROOT/index.html
   template:
-    src: index.html.j2
+    src: root_index.html.j2
     dest: /usr/share/tomcat/webapps/ROOT/index.html
     mode: 0644
   become: true

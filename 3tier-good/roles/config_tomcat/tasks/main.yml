@@ -11,7 +11,7 @@
 
 - name: copy index.html to tomcat/webapps/ansible/index.html for each app server
   template:
-    src: index.html.j2
+    src: ansible_index.html.j2
     dest: /usr/share/tomcat/webapps/ansible/index.html
   become: true
   notify:
