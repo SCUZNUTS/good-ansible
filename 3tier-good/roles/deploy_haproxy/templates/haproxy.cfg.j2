@@ -32,6 +32,5 @@ backend app-servers
     mode http
     balance roundrobin
     option forwardfor
-    {% for host in groups['apps'] %}server {{hostvars[host].ansible_hostname}} {{hostvars[host].ansible_hostname}}.{{GUID}}.internal:8080 cookie app1 check
-{% endfor %}
+{% for host in groups['apps'] %}    server {{hostvars[host].ansible_hostname}} {{hostvars[host].ansible_hostname}}.{{GUID}}.internal:8080 cookie app1 check{% endfor %}
 	
