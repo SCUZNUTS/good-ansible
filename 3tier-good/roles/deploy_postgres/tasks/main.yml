@@ -20,6 +20,6 @@
     command: postgresql-setup initdb
   - name: initilize postgres some more
     command: chkconfig postgresql on
-  when: postgress_init is not defined
+  when: postgress_init.stat.exists == "false"
   tags:
     - sql_init
