@@ -34,6 +34,6 @@
   tasks:
    - name: Check haproxy is serving website
      uri:
-       url: "var=hostvars['{{ item }}']['ansible_ssh_host']"
+       url: (var=hostvars['{{ item }}']['ansible_ssh_host'])
      loop:
        - "{{ groups['frontends'] | list | join }}"
