@@ -27,3 +27,12 @@ backend app-servers
     option forwardfor
     server app1 app1.{{GUID}}.internal:8080 cookie app1 check
     server app2 app2.{{GUID}}.internal:8080 cookie app2 check
+
+backend app-servers
+    mode http
+    balance roundrobin
+    option forwardfor
+	"{%- for host in groups['apps'] -%}
+{%- if loop.first -%}
+server {{ansible_hostname}} {{ansible_hostname}}.{{GUID}}.internal:8080 cookie app1 check{%- endif -%}
+{%- endfor -%}"
