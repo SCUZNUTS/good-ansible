@@ -1,0 +1,4 @@
+- name: deploy haproxy to frontend
+  hosts: frontends
+  roles:
+   - { role: ../roles/deploy_haproxy }

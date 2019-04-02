@@ -1,0 +1,15 @@
+---
+- import_playbook: playbooks/deploy_common_play.yml
+## Runs common tasks that all servers require
+
+- import_playbook: playbooks/deploy_postgres_to_db.yml
+## Deploys postgres and configures on all databases defined in inventory
+
+- import_playbook: playbooks/deploy_tomcat-apache_to_apps.yml
+## Deploys tomcat and apache and configures on all app servers defined in inventory
+
+- import_playbook: playbooks/deploy_haproxy_to_frontends.yml
+## Deploys haproxy on all frontends defined in inventory
+
+- import_playbook: playbooks/smoketest_play.yml
+## Runs a smoketest on a defined URL to confirm website is active on frontend

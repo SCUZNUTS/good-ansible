@@ -1,0 +1,11 @@
+---
+
+- name: Restart all hosts
+  hosts: appdbs
+  roles:
+   - { role: ../roles/restart_server }
+
+- name: Restart all hosts
+  hosts: all,!appdbs
+  roles:
+   - { role: ../roles/restart_server }

@@ -1,0 +1,30 @@
+---
+
+- name: Deploy common files to all hosts
+  hosts: all
+  roles:
+   - { role: ../roles/deploy_yum_repos }
+
+- name: deploy postgres to db servers
+  hosts: appdbs
+  roles:
+   - { role: ../roles/deploy_postgres }
+
+- name: deploy tomcat and apache to app servers
+  hosts: apps
+  roles:
+   - { role: ../roles/deploy_tomcat }
+   - { role: ../roles/config_tomcat }
+   - { role: ../roles/deploy_apache }
+
+- name: deploy haproxy to frontend
+  hosts: frontends
+  roles:
+   - { role: ../roles/deploy_haproxy }
+
+- hosts: localhost
+  gather_facts: true
+  tasks:
+   - name: Check haproxy is serving website
+     uri:
+       url: http://frontend1.{{ GUID }}.example.opentlc.com

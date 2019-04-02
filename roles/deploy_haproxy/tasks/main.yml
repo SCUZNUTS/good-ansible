@@ -1,0 +1,31 @@
+---
+
+- name: Install httpie and haproxy
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - httpie
+    - haproxy
+  become: true
+  tags:
+    - deploy_haproxy
+    - config_haproxy
+
+- name: Ensure HAproxy set to start on boot
+  service:
+    name: haproxy
+    enabled: yes
+  become: true
+  tags:
+    - deploy_haproxy
+
+- name: Configure haproxy with template
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify:
+    - restart HAproxy
+  tags:
+    - config_haproxy
+  become: true

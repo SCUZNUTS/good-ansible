@@ -1,0 +1,33 @@
+- hosts: localhost
+  gather_facts: true
+  tasks:
+   - name: Check haproxy is serving website
+     uri:
+       url: http://frontend1.{{ GUID }}.example.opentlc.com
+
+
+##- hosts: localhost
+##  gather_facts: true
+##  tasks:
+##  - name: fetch app url
+##    debug: "hostvars['{{ item }}']['ansible_ssh_host']"
+##    loop:
+##      - "{{ groups['frontends'] | list | join }}"
+##    register: url_var
+##    tags:
+##      - smoketest
+##
+##  - debug:
+##      var: url_var
+##    tags:
+##      - smoketest
+##       
+##- hosts: localhost
+##  gather_facts: true
+##  tasks:
+##   - name: Check haproxy is serving website
+##     uri:
+##       url: var=hostvars['{{ item }}']['ansible_ssh_host']
+##     loop:
+##       - "{{ groups['frontends'] | list | join }}"
+##
