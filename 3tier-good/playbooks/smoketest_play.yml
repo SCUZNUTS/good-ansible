@@ -15,8 +15,8 @@
       - "{{ groups['frontends'] | list | join }}"
     register: url_var
 
-- debug:
-    var: url_var
+  - debug:
+      var: url_var
 ##       
 ##- hosts: localhost
 ##  gather_facts: true
