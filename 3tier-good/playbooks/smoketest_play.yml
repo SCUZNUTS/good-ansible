@@ -10,7 +10,7 @@
   gather_facts: true
   tasks:
   - name: fetch app url
-    debug: var=hostvars['{{ item }}']['ansible_ssh_host']
+    debug: hostvars['{{ item }}']['ansible_ssh_host']
     loop:
       - "{{ groups['frontends'] | list | join }}"
     register: url_var
